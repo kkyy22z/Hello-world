@@ -1,0 +1,114 @@
+
+Dim hwnd
+//tmp = Plugin.Window.Find(0,"BlueStacks 多開引擎 1")
+tmp = 3278382
+tmp2 = 3278382
+
+hwnd = 266514
+hwnd2 = 266514
+
+
+/*Randomize a
+Randomize b
+a = a / 32
+b = b / 32*/
+Call Plugin.Window.Size(tmp, 1280, 720)
+Call Plugin.Window.Size(tmp2, 1280, 720)
+windowSize=77//外框內框差
+Delay 1000
+Call bk_click(852, 95, windowSize)
+
+growX = 547
+growY = 236
+collX = 672
+collY = 270
+
+
+//Call action(collX,collY)
+While (1)
+Call action(growX, growY, windowSize, hwnd)
+Call action(growX, growY, windowSize, hwnd2)
+Call sell(hwnd)
+Call sell(hwnd2)
+Delay 38000
+Call action(collX, collY, windowSize,hwnd)
+Call action(collX, collY, windowSize, hwnd2)
+
+Wend
+Sub sell(h)
+Call bk_press(65,h)
+Delay 2000
+Call bk_press(68,h)
+Delay 2000
+Call bk_press(66,h)
+Delay 2000
+Call bk_press(68,h)
+Delay 2000
+Call bk_press(67,h)
+Delay 2000
+Call bk_press(68,h)
+Delay 2000
+End Sub
+Sub action(starX,starY,windowSize,h)
+comX = 28//格子大小
+comY = 15//格子大小
+LeftX = 820//第一格座標
+LeftY = 318//第一格座標
+Call bk_click(LeftX, LeftY,windowSize,h)
+Call bk_LeftDown(starX, starY,windowSize,h)
+Call bk_moveto(LeftX, LeftY,windowSize,h)
+Delay 200
+Call bk_moveto(LeftX+7, LeftY+7,windowSize,h)
+Delay 50
+row=5//列
+Call rownum(row,windowSize,h)
+Call bk_LeftUp(LeftX, LeftY,windowSize,h)
+End Sub
+ 
+ Sub rownum(num,W,h)
+ 	For (num)
+ 		Call bk_moveto(LeftX + 2, LeftY + 2, W,h)
+ 		call bk_moveto(LeftX+1, LeftY+1,W,h)
+ 		Call left_move(LeftX, LeftY,W,h)
+ 		LeftX = LeftX - comX
+		LeftY = LeftY + comY
+ 	Next
+ End Sub
+ 
+Sub left_move(LeftX, LeftY, windowSize,h)
+col=6//行
+LeftXT=LeftX
+LeftYT=LeftY
+For (col)
+Call bk_moveto(LeftXT, LeftYT, windowSize,h)
+LeftXT = LeftXT + comX
+LeftYT = LeftYT + comY
+Next
+ End Sub
+ 
+ 
+ Sub bk_moveto(X,Y,W,h)
+	Call Plugin.Bkgnd.MoveTo(h, X+W, Y)
+	Delay 100
+End Sub
+
+
+Sub bk_LeftDown(X,Y,W,h)
+	Call Plugin.Bkgnd.LeftDown(h, X+W, Y)
+	Delay 100
+End Sub
+
+Sub bk_LeftUP(X,Y,W,h)
+	Call Plugin.Bkgnd.LeftUP(h, X+W, Y)
+	Delay 100
+End Sub
+
+Sub bk_click(X,Y,W,h)
+	Call Plugin.Bkgnd.LeftClick(h, X+W, Y)
+	Delay 100	
+End Sub
+
+Sub bk_press(X,h)
+	Call Plugin.Bkgnd.KeyPress(h,X)
+	//Delay 100
+End Sub
